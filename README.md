@@ -1,3 +1,6 @@
+# Track Bluebike reliability using real-time data
+Forked from @NYCComptroller's collection and analysis of City Bike GBFS data, follow the same steps using Bluebike's GBFS feed. The original readme for Citi Bike readme follows
+
 # Track Citi Bike reliability using real-time data
 
 Use this repo to get data from Citi Bike's GBFS real-time data feed and revisit the analysis we used for [*Riding Forward: Overhauling Citi Bike’s Contract for Better, More Equitable Service*](https://comptroller.nyc.gov/reports/riding-forward-overhauling-citi-bikes-contract-for-better-more-equitable-service/)
