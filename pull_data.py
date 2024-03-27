@@ -3,8 +3,20 @@ from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
 import json
 from os import makedirs
+from argparse import ArgumentParser
 
-makedirs('data', exist_ok=True)
+# The bikeshare networks operated by Lyft with GBFS feeds
+bikeshares = ['citibikenyc', 'bluebikes', 'divvybikes', 'capitalbikeshare', 'biketownpdx']
+
+# Parse the argument
+parser = ArgumentParser()
+parser.add_argument('bikeshare', choices=bikeshares)
+bikeshare = parser.parse_args().bikeshare
+
+dir='data/' + bikeshare
+makedirs(dir, exist_ok=True)
+
+feed = 'https://gbfs.' + bikeshare + '.com/gbfs/en/'
 
 # copying a retry strategy from: https://www.peterbe.com/plog/best-practice-with-retries-with-requests
 def requests_retry_session(
@@ -26,8 +38,8 @@ def requests_retry_session(
     session.mount('https://', adapter)
     return session
 
-stations_get = requests_retry_session().get('https://gbfs.lyft.com/gbfs/1.1/bos/en/station_information.json')
-status_get = requests_retry_session().get('https://gbfs.lyft.com/gbfs/1.1/bos/en/station_status.json')
+stations_get = requests_retry_session().get(feed + 'station_information.json')
+status_get = requests_retry_session().get(feed + 'station_status.json')
 
 status_get.raise_for_status() # should raise error and end execution if there was a connection error
 
@@ -35,8 +47,8 @@ status_json = status_get.json() # should raise error if the json is unparsable
 
 timestamp = status_json['last_updated']
 
-with open(f"data/{timestamp}_stations.json", 'w') as stations_file:
+with open(f"{dir}/{timestamp}_stations.json", 'w') as stations_file:
     json.dump(stations_get.json(), stations_file)
 
-with open(f"data/{timestamp}_status.json", 'w') as status_file:
+with open(f"{dir}/{timestamp}_status.json", 'w') as status_file:
     json.dump(status_json, status_file)
