@@ -26,6 +26,7 @@ on:
 
 jobs:
   get:
+    name: get ${{ input.bikeshare }} data
     runs-on: ubuntu-latest
     steps:
 
