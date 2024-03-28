@@ -43,21 +43,13 @@ jobs:
     - name: fetch data, write timestamp as filename
       run: python pull_data.py ${{ inputs.bikeshare }}
 
-
     - name: commit files
       run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add -A
+          git pull
           git diff-index --quiet HEAD || (git commit -a -m "pulled data for ${{ inputs.bikeshare }}" --allow-empty)
-
-    - name: pull latest
-      run: |
-        git pull --rebase=merges
-
-    - name: push changes
-      uses: ad-m/github-push-action@v0.6.0
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.ref }}
+          git pull --rebase=merges
+          git push
 
