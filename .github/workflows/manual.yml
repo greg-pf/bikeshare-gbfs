@@ -1,10 +1,16 @@
-# This is a basic workflow that is manually triggered
+# Grab GBFS data for a given bikeshare network and push it to the current branch. 
+# This can be manually triggered or called from another workflow.
 
-name: Manual workflow
+name: Manually get GBFS data
 
-# Controls when the action will run. Workflow runs when manually triggered using the UI
-# or API.
 on:
+  workflow_call:
+    inputs:
+      bikeshare:
+        description: 'The bikeshare service to collect GBFS data for.'
+        required: true
+        type: string
+        
   workflow_dispatch:
     inputs:
       bikeshare:
