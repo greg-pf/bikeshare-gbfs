@@ -1,22 +1,28 @@
-# This is a basic workflow that is manually triggered
+# Grab GBFS data for a given bikeshare network and push it to the current branch. 
+# This can be manually triggered or called from another workflow.
 
-name: Manual workflow
+name: Manually get GBFS data
 
-# Controls when the action will run. Workflow runs when manually triggered using the UI
-# or API.
 on:
-  workflow_dispatch:
-    # Inputs the workflow accepts.
+  workflow_call:
     inputs:
-      name:
-        # Friendly description to be shown in the UI instead of 'name'
-        description: 'Person to greet'
-        # Default value if no value is explicitly provided
-        default: 'World'
-        # Input has to be provided for the workflow to run
+      bikeshare:
+        description: 'The bikeshare service to collect GBFS data for.'
         required: true
-        # The data type of the input
         type: string
+        
+  workflow_dispatch:
+    inputs:
+      bikeshare:
+        description: 'The bikeshare service to collect GBFS data for.'
+        required: true
+        type: choice
+        options:
+        - citibikenyc
+        - bluebikes
+        - divvybikes
+        - capitalbikeshare
+        - biketownpdx
 
 jobs:
   get:
@@ -35,17 +41,19 @@ jobs:
       run: pip install requests
 
     - name: fetch data, write timestamp as filename
-      run: python pull_data.py
+      run: python pull_data.py ${{ inputs.bikeshare }}
+
 
     - name: commit files
       run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add -A
-          git diff-index --quiet HEAD || (git commit -a -m "pulled data on schedule" --allow-empty)
+          git diff-index --quiet HEAD || (git commit -a -m "pulled data for ${{ inputs.bikeshare }}" --allow-empty)
 
     - name: push changes
       uses: ad-m/github-push-action@v0.6.0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: greg-pf-manual
+        branch: ${{ github.ref }}
+

@@ -1,0 +1,33 @@
+# Runs the manual.yml workflow for each of the Lyft bikeshare networks according to a cron schedule
+name: Scheduled Caller
+
+on:
+  schedule:
+  - cron: '10,25,40,55 * * * *'
+
+jobs:
+  citibikenyc:
+    name: Get ${{ github.job }} data
+    uses: ./.github/workflows/manual.yml
+    with:
+      bikeshare: ${{ github.job }}
+  bluebikes:
+    name: Get ${{ github.job }} data
+    uses: ./.github/workflows/manual.yml
+    with:
+      bikeshare: ${{ github.job }}
+  divvybikes:
+    name: Get ${{ github.job }} data
+    uses: ./.github/workflows/manual.yml
+    with:
+      bikeshare: ${{ github.job }}
+  capitalbikeshare:
+    name: Get ${{ github.job }} data
+    uses: ./.github/workflows/manual.yml
+    with:
+      bikeshare: ${{ github.job }}
+  biketownpdx:
+    name: Get ${{ github.job }} data
+    uses: ./.github/workflows/manual.yml
+    with:
+      bikeshare: ${{ github.job }}
