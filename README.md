@@ -1,5 +1,5 @@
-# Track Bluebike reliability using real-time data
-Forked from @NYCComptroller's collection and analysis of City Bike GBFS data, follow the same steps using Bluebike's GBFS feed. The original readme for Citi Bike readme follows
+# Track bikeshare reliability using real-time data
+Forked from @NYCComptroller's collection and analysis of City Bike GBFS data, follow the same steps using the GBFS feeds from Lyft's other bikeshare networks. The original readme for Citi Bike readme follows
 
 # Track Citi Bike reliability using real-time data
 
