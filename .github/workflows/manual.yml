@@ -53,7 +53,7 @@ jobs:
 
     - name: pull latest
       run: |
-        git pull
+        git pull --rebase=merges
 
     - name: push changes
       uses: ad-m/github-push-action@v0.6.0
