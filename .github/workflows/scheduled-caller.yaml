@@ -10,24 +10,24 @@ jobs:
     name: Get ${{ github.job }} data
     uses: ./.github/workflows/manual.yml
     with:
-      bikeshare: ${{ github.job }}
+      bikeshare: citibikenyc
   bluebikes:
     name: Get ${{ github.job }} data
     uses: ./.github/workflows/manual.yml
     with:
-      bikeshare: ${{ github.job }}
+      bikeshare: bluebikes
   divvybikes:
     name: Get ${{ github.job }} data
     uses: ./.github/workflows/manual.yml
     with:
-      bikeshare: ${{ github.job }}
+      bikeshare: divvybikes
   capitalbikeshare:
     name: Get ${{ github.job }} data
     uses: ./.github/workflows/manual.yml
     with:
-      bikeshare: ${{ github.job }}
+      bikeshare: capitalbikeshare
   biketownpdx:
     name: Get ${{ github.job }} data
     uses: ./.github/workflows/manual.yml
     with:
-      bikeshare: ${{ github.job }}
+      bikeshare: biketownpdx
