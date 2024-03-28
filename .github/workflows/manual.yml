@@ -42,10 +42,10 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add -A
-          git diff-index --quiet HEAD || (git commit -a -m "pulled data on schedule" --allow-empty)
+          git diff-index --quiet HEAD || (git commit -a -m "pulled data for ${{ inputs.bikeshare }}" --allow-empty)
 
     - name: push changes
       uses: ad-m/github-push-action@v0.6.0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: greg-pf-manual
+        branch: ${{ github.ref }}
