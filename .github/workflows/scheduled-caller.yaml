@@ -8,33 +8,28 @@ on:
 
 jobs:
   citibikenyc:
-    name: Get ${{ github.job }} data
     uses: ./.github/workflows/manual.yml
     with:
       bikeshare: citibikenyc
   bluebikes:
-    name: Get ${{ github.job }} data
     if: ${{ always() }}
     needs: citibikenyc
     uses: ./.github/workflows/manual.yml
     with:
       bikeshare: bluebikes
   divvybikes:
-    name: Get ${{ github.job }} data
     if: ${{ always() }}
     needs: bluebikes
     uses: ./.github/workflows/manual.yml
     with:
       bikeshare: divvybikes
   capitalbikeshare:
-    name: Get ${{ github.job }} data
     if: ${{ always() }}
     needs: divvybikes
     uses: ./.github/workflows/manual.yml
     with:
       bikeshare: capitalbikeshare
   biketownpdx:
-    name: Get ${{ github.job }} data
     if: ${{ always() }}
     needs: capitalbikeshare
     uses: ./.github/workflows/manual.yml
